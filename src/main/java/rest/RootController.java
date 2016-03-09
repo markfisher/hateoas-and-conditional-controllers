@@ -13,41 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package app;
+package rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import employee.Employee;
-import employee.EmployeeRepository;
 
 /**
  * @author Greg Turnquist
  */
 @RestController
-@ExposesResourceFor(Employee.class)
-@ConditionalOnBean(EmployeeRepository.class)
-public class EmployeeController {
+public class RootController {
 
-	private final EmployeeRepository repository;
+	private final EntityLinks entityLinks;
 
 	@Autowired
-	public EmployeeController(EmployeeRepository repository) {
-		this.repository = repository;
+	public RootController(EntityLinks entityLinks) {
+		this.entityLinks = entityLinks;
 	}
 
-	@RequestMapping(value = "/employees")
-	ResponseEntity<?> employees() {
-		return ResponseEntity.ok(repository.findAll());
+	@RequestMapping(value = "/info")
+	ResponseEntity<?> info() {
+
+		ResourceSupport info = new ResourceSupport();
+
+		info.add(entityLinks.linkToSingleResource(Employee.class, 1).withRel("employee 1"));
+		info.add(entityLinks.linkToCollectionResource(Employee.class).withRel("All employees"));
+
+		return ResponseEntity.ok(info);
 	}
 
-	@RequestMapping(value = "/employees/{id}")
-	ResponseEntity<?> employee(String id) {
-		return ResponseEntity.ok(repository.findOne(id));
-	}
+
 
 }

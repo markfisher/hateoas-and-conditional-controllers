@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  config.EmployeeRepositoryAutoConfiguration
+  config.EmployeeRepositoryAutoConfiguration,\
+  config.ControllerAutoConfiguration

@@ -13,25 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist;
+package employee;
 
-import lombok.Data;
+import java.util.Collections;
+import java.util.List;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Link;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Greg Turnquist
  */
-@Data
-public class Employee extends ResourceSupport {
+@Repository
+public class EmployeeRepository {
 
-	private String name;
-	private String role;
+	public List<Employee> findAll() {
+		return Collections.emptyList();
+	}
 
-	public Employee(String name, String role) {
-
-		this.name = name;
-		this.role = role;
+	public Employee findOne(String id) {
+		final Employee frodo = new Employee("Frodo", "ring bearer");
+		frodo.add(new Link("localhost:8080", "self"));
+		return frodo;
 	}
 
 }

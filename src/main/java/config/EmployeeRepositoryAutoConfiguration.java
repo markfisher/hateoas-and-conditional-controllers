@@ -13,28 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist;
+package config;
 
-import java.util.Collections;
-import java.util.List;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import org.springframework.hateoas.Link;
-import org.springframework.stereotype.Service;
+import employee.EmployeeRepository;
 
-/**
- * @author Greg Turnquist
- */
-@Service
-public class EmployeeRepository {
+@Configuration
+public class EmployeeRepositoryAutoConfiguration {
 
-	public List<Employee> findAll() {
-		return Collections.emptyList();
+	@Bean
+	public EmployeeRepository employeeRepository() {
+		return new EmployeeRepository();
 	}
-
-	public Employee findOne(String id) {
-		final Employee frodo = new Employee("Frodo", "ring bearer");
-		frodo.add(new Link("localhost:8080", "self"));
-		return frodo;
-	}
-
 }

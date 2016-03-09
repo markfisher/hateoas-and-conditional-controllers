@@ -1,3 +1,7 @@
+.classpath
+.project
+.settings/
+.springBeans
 
 # Created by https://www.gitignore.io/api/intellij,maven,java
 

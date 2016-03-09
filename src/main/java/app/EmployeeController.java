@@ -13,25 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist;
+package app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import employee.Employee;
+import employee.EmployeeRepository;
 
 /**
  * @author Greg Turnquist
  */
 @RestController
 @ExposesResourceFor(Employee.class)
-public class ConditionalController {
+@ConditionalOnBean(EmployeeRepository.class)
+public class EmployeeController {
 
 	private final EmployeeRepository repository;
 
 	@Autowired
-	public ConditionalController(EmployeeRepository repository) {
+	public EmployeeController(EmployeeRepository repository) {
 		this.repository = repository;
 	}
 

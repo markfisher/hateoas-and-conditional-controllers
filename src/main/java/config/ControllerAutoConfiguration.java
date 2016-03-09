@@ -16,15 +16,18 @@
 package config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import employee.EmployeeRepository;
 import rest.EmployeeController;
 
 @Configuration
-@ConditionalOnBean(EmployeeRepository.class)
-@ComponentScan(basePackageClasses = EmployeeController.class)
 public class ControllerAutoConfiguration {
 
+	@Bean
+	@ConditionalOnBean(EmployeeRepository.class)
+	public EmployeeController EmployeeController(EmployeeRepository employeeRepository) { 
+		return new EmployeeController(employeeRepository);
+	}
 }
